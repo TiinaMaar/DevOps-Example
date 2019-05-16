@@ -5,13 +5,19 @@ pipeline {
   }
   stages {
     stage('Stop previous Docker container') {
+        when {
+          branch 'Development'
+        }
         agent any 
         steps {
             sh 'docker exec -i Docker_example pkill node || true && docker stop Docker_example || true && docker rm Docker_example || true'
         }
     }
 
-  stage('Run app in Docker container') {
+  stage('Run app in Docker container for develeopment') {
+      when {
+        branch 'Development'
+      }
       agent {
         docker {
           image 'node:8-alpine'
