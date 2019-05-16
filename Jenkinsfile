@@ -14,7 +14,7 @@ pipeline {
         }
     }
 
-  stage('Run app in Docker container for develeopment') {
+  stage('Run app in Docker container for development') {
       when {
         branch 'Development'
       }
@@ -43,5 +43,16 @@ pipeline {
         }
       }
     }
+
+
+
+  stage('Deploy app to production') {
+      when {
+        branch 'master'
+      }
+      agent any
+      steps {
+        sh 'echo hellou prod'
+      }
   }
 }
